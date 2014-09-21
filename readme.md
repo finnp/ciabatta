@@ -1,6 +1,6 @@
 # ciabatta
 
-A tool for initialising CI tools for your (Open Source / GitHu) project.
+A tool for initialising CI tools for your (Open Source / GitHub) project.
 
 
 ## ciabatta badge
