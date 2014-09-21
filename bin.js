@@ -57,11 +57,10 @@ if(command === 'badge' || command === 'badges') {
     cmd: argv._[1]
   }
   program.title = argv.title || program.cmd
-  program.color = argv.color
   programs.push(program)
   config.set('programs', programs)
 
-} else if(command === 'remove') {
+} else if(command === 'remove' || command === 'rm') {
 
   var toremove = argv._[1]
   programs = programs.filter(function (program) {
@@ -82,10 +81,17 @@ if(command === 'badge' || command === 'badges') {
   console.error('Usage: ciabatta [command]')
 }
 
+// silly colors
+var colorsloaded = false
+function initColors() {
+  colorsloaded = true
+  var colors = ['red', 'blue', 'yellow', 'green', 'magenta', 'cyan']
+  programs.forEach(function (item, index) {
+    programs.color = colors[index % colors.length]
+  })
+}
+
 function paint(program) {
-  var sig = '[' + program.cmd + ']'
-  if('color' in program && program.color in chalk) {
-    sig = chalk[program.color](sig)
-  }
-  return sig
+  if(!colorsloaded) initColors()
+  return chalk[program.color]('[' + program.cmd + ']')
 }
