@@ -17,7 +17,9 @@ if(command === 'badge' || command === 'badges') {
     return p.title
   }).join(' | '))
   
-  console.log(programs.map(function () { return '----'}).join(' | '))
+  console.log(programs.map(function (p) { 
+    return Array(p.title.length + 1).join('-')}
+  ).join(' | '))
   
   var todo = programs.length
   
@@ -34,6 +36,11 @@ if(command === 'badge' || command === 'badges') {
         }).join(' | '))
       }
     }))  
+  })
+} else if(command === 'init') {
+  programs.forEach(function (program) {
+    var child = spawn(program.cmd, ['init'])
+    child.stdout.pipe(process.stdout)
   })
 } else {
   console.error('Usage: ciabatta [command]')
