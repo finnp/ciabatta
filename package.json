@@ -1,0 +1,30 @@
+{
+  "name": "ciabatta",
+  "version": "1.0.0",
+  "description": "CI for setting up Continous Integration services",
+  "bin": {
+    "ciabatta": "./bin.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/finnp/ciabatta"
+  },
+  "keywords": [
+    "ci",
+    "travis",
+    "appveyor"
+  ],
+  "author": "Finn Pauls",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/finnp/ciabatta/issues"
+  },
+  "homepage": "https://github.com/finnp/ciabatta",
+  "dependencies": {
+    "concat-stream": "^1.4.6",
+    "minimist": "^1.1.0"
+  }
+}
