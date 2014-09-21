@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-var programs = [
-  {'cmd': 'travisjs', 'title': 'Mac/Linux', color: 'blue'},
-  {'cmd': 'appveyor', 'title': 'Windows', color: 'red'}
-]
 
 var spawn = require('child_process').spawn
 var concat = require('concat-stream')
 var split = require('split')
 var chalk = require('chalk')
+var configstore = require('configstore')
+var config = new configstore('ciabatta', {programs: []})
+var programs = config.get('programs')
 
 var argv = require('minimist')(process.argv.slice(2))
 
@@ -39,7 +38,9 @@ if(command === 'badge' || command === 'badges') {
       }
     }))  
   })
+
 } else if(command === 'init') {
+
   programs.forEach(function (program) {
     var child = spawn(program.cmd, ['init'])
     child.stdout
@@ -50,6 +51,33 @@ if(command === 'badge' || command === 'badges') {
           console.log(paint(program), line)
       })
   })
+} else if(command === 'add') {
+
+  var program = {
+    cmd: argv._[1]
+  }
+  program.title = argv.title || program.cmd
+  program.color = argv.color
+  programs.push(program)
+  config.set('programs', programs)
+
+} else if(command === 'remove') {
+
+  var toremove = argv._[1]
+  programs = programs.filter(function (program) {
+    return program.cmd !== toremove
+  })
+  config.set('programs', programs)
+
+} else if(command === 'programs' || command === 'tools') {
+
+  console.log(programs.map(function (program) {
+    return JSON.stringify(program, null, ' ')
+  }).join('\n'))
+
+} else if(command === 'config') {
+  
+  console.log(config.path)
 } else {
   console.error('Usage: ciabatta [command]')
 }

@@ -8,6 +8,10 @@ Right now it depends on global installations of [travisjs](https://www.npmjs.org
 and [appveyor](https://www.npmjs.org/package/appveyor). This is because I would like
 to make it easily extensible in the future with custom tools.
 
+```
+ciabatta add travisjs --title "Mac/Linux" --color red
+ciabatta add appveyor --title Windows --color blue
+```
 
 ## ciabatta badge
 
