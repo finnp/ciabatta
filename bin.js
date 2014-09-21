@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 var programs = [
-  {'cmd': 'travisjs', 'title': 'Mac/Linux'},
-  {'cmd': 'appveyor', 'title': 'Windows'}
+  {'cmd': 'travisjs', 'title': 'Mac/Linux', color: 'blue'},
+  {'cmd': 'appveyor', 'title': 'Windows', color: 'red'}
 ]
 
 var spawn = require('child_process').spawn
 var concat = require('concat-stream')
+var split = require('split')
+var chalk = require('chalk')
 
 var argv = require('minimist')(process.argv.slice(2))
 
@@ -40,8 +42,22 @@ if(command === 'badge' || command === 'badges') {
 } else if(command === 'init') {
   programs.forEach(function (program) {
     var child = spawn(program.cmd, ['init'])
-    child.stdout.pipe(process.stdout)
+    child.stdout
+      .pipe(split())
+      .on('data', function (line) {
+        line = line.trim()
+        if(line.length > 0)
+          console.log(paint(program), line)
+      })
   })
 } else {
   console.error('Usage: ciabatta [command]')
+}
+
+function paint(program) {
+  var sig = '[' + program.cmd + ']'
+  if('color' in program && program.color in chalk) {
+    sig = chalk[program.color](sig)
+  }
+  return sig
 }

@@ -2,6 +2,12 @@
 
 A tool for initialising CI tools for your (Open Source / GitHub) project.
 
+Install it with `npm install ciabatta -g`.
+
+Right now it depends on global installations of [travisjs](https://www.npmjs.org/package/travisjs)
+and [appveyor](https://www.npmjs.org/package/appveyor). This is because I would like
+to make it easily extensible in the future with custom tools.
+
 
 ## ciabatta badge
 
@@ -14,3 +20,4 @@ travisjs | appveyor
 
 ## ciabatta init
 
+Creates necessary files and hooks for `appveyor` and `travisjs`.

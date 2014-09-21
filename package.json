@@ -1,7 +1,7 @@
 {
   "name": "ciabatta",
   "version": "1.0.0",
-  "description": "CI for setting up Continous Integration services",
+  "description": "CLI for setting up Continous Integration services",
   "bin": {
     "ciabatta": "./bin.js"
   },
@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/finnp/ciabatta",
   "dependencies": {
+    "chalk": "^0.5.1",
     "concat-stream": "^1.4.6",
-    "minimist": "^1.1.0"
+    "minimist": "^1.1.0",
+    "split": "^0.3.0"
   }
 }
